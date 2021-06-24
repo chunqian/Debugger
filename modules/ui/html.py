@@ -142,6 +142,24 @@ class div (element):
 			html = f'<div class="{self.className}" style="height:{h}rem;width:{w}rem;">{inner}</div>'
 		return html
 
+class div2 (element):
+	Children = Optional[Union[Sequence['div'], Sequence['span'], 'div', 'span']]
+
+	def __init__(self, width: float|None = None, height: float|None = None, css: css|None = None) -> None:
+		super().__init__(False, width, height, css)
+		self._items = None #type: div.Children
+
+	def render(self) -> 'div.Children':
+		return self._items
+
+	def __getitem__(self, values: 'div.Children'):
+		self._items = values
+		return self
+
+	def html(self, layout: Layout) -> str:
+		html = f'<div style="color: #157efb">⬅</div>'
+		return html
+
 
 # uses an img tag to force the width of the phantom to be the width of the item being rendered
 class phantom_sizer (div):

@@ -139,31 +139,39 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 		self.debugger_panel = DebuggerPanel(self, self.breakpoints_panel)
 
 		# middle panels
-		self.middle_panel = TabbedPanel([], 0, width_scale=0.666, width_additional=-41)
+		# self.middle_panel = TabbedPanel([], 0, width_scale=0.666, width_additional=-41)
+		self.middle_panel = TabbedPanel([], 0, width_scale=0.77, width_additional=0)
 
 		self.terminal_view = TerminalView(self.terminal, self.on_navigate_to_source)
 
 		self.callstack_view =  CallStackView(self.sessions)
 		self.problems_view = DiagnosticsPanel(self.tasks, self.on_navigate_to_source)
 
-		self.middle_panel.update([
-			TabbedPanelItem(self.terminal_view, self.terminal_view, 'Debugger Console', show_options=lambda: self.terminal.show_backing_panel()),
-			TabbedPanelItem(self.callstack_view, self.callstack_view, 'Callstack'),
-			TabbedPanelItem(self.problems_view, self.problems_view, 'Problems'),
-		])
-
-		# right panels
-		self.right_panel = TabbedPanel([], 0, width_scale=0.333, width_additional=-41)
-
 		self.variables_panel = VariablesPanel(self.sessions)
 		self.modules_panel = ModulesView(self.sessions)
 		self.sources_panel = SourcesView(self.sessions, self.on_navigate_to_source)
 
-		self.right_panel.update([
+		self.middle_panel.update([
+			TabbedPanelItem(self.terminal_view, self.terminal_view, 'Debugger Console', show_options=lambda: self.terminal.show_backing_panel()),
+			TabbedPanelItem(self.callstack_view, self.callstack_view, 'Callstack'),
+			TabbedPanelItem(self.problems_view, self.problems_view, 'Problems'),
 			TabbedPanelItem(self.variables_panel, self.variables_panel, 'Variables'),
 			TabbedPanelItem(self.modules_panel, self.modules_panel, 'Modules'),
 			TabbedPanelItem(self.sources_panel, self.sources_panel, 'Sources'),
 		])
+
+		# right panels
+		# self.right_panel = TabbedPanel([], 0, width_scale=0.333, width_additional=-41)
+
+		# self.variables_panel = VariablesPanel(self.sessions)
+		# self.modules_panel = ModulesView(self.sessions)
+		# self.sources_panel = SourcesView(self.sessions, self.on_navigate_to_source)
+
+		# self.right_panel.update([
+		# 	TabbedPanelItem(self.variables_panel, self.variables_panel, 'Variables'),
+		# 	TabbedPanelItem(self.modules_panel, self.modules_panel, 'Modules'),
+		# 	TabbedPanelItem(self.sources_panel, self.sources_panel, 'Sources'),
+		# ])
 
 		# phantoms
 		phantom_location = self.panel.panel_phantom_location()
@@ -171,8 +179,9 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 
 		self.left = ui.Phantom(self.debugger_panel, phantom_view, sublime.Region(phantom_location, phantom_location), sublime.LAYOUT_INLINE)
 		self.middle = ui.Phantom(self.middle_panel, phantom_view, sublime.Region(phantom_location + 0, phantom_location + 1), sublime.LAYOUT_INLINE)
-		self.right = ui.Phantom(self.right_panel, phantom_view, sublime.Region(phantom_location + 0, phantom_location + 2), sublime.LAYOUT_INLINE)
-		self.disposeables.extend([self.left, self.middle, self.right])
+		# self.right = ui.Phantom(self.right_panel, phantom_view, sublime.Region(phantom_location + 0, phantom_location + 2), sublime.LAYOUT_INLINE)
+		# self.disposeables.extend([self.left, self.middle, self.right])
+		self.disposeables.extend([self.left, self.middle])
 
 		self.sessions.updated.add(self.on_session_state_changed)
 		self.sessions.on_selected.add(self.on_session_selection_changed)
@@ -210,7 +219,8 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 			# if self.project.bring_window_to_front_on_pause:
 			# figure out a good way to bring sublime to front
 
-			self.show_call_stack_panel()
+			# self.show_call_stack_panel()
+			return
 
 		elif state == dap.Session.State.STOPPING or state == dap.Session.State.STARTING:
 			...
@@ -234,6 +244,9 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 
 	def show_call_stack_panel(self) -> None:
 		self.middle_panel.select(self.callstack_view)
+
+	def show_variables_panel(self) -> None:
+		self.middle_panel.select(self.variables_panel)
 
 	def set_configuration(self, configuration: Union[dap.Configuration, dap.ConfigurationCompound]):
 		self.project.configuration_or_compound = configuration

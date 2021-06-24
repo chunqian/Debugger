@@ -61,46 +61,47 @@ class Listener (sublime_plugin.EventListener):
 	def ignore(self, view: sublime.View):
 		return not bool(Debugger.instances)
 
-	@core.schedule
-	async def on_hover(self, view: sublime.View, point: int, hover_zone: int):
-		if self.ignore(view): return
+	# @core.schedule
+	# async def on_hover(self, view: sublime.View, point: int, hover_zone: int):
+	# 	if self.ignore(view): return
 
-		debugger = debugger_for_view(view)
-		if not debugger:
-			return
+	# 	debugger = debugger_for_view(view)
+	# 	if not debugger:
+	# 		return
 
-		project = debugger.project
-		sessions = debugger.sessions
+	# 	project = debugger.project
+	# 	sessions = debugger.sessions
 
-		if hover_zone != sublime.HOVER_TEXT or not project.is_source_file(view):
-			return
+	# 	if hover_zone != sublime.HOVER_TEXT or not project.is_source_file(view):
+	# 		return
 
-		if not sessions.has_active:
-			return
+	# 	if not sessions.has_active:
+	# 		return
 
-		session = sessions.active
+	# 	session = sessions.active
 
-		r = session.adapter_configuration.on_hover_provider(view, point)
-		if not r:
-			return
-		word_string, region = r
+	# 	r = session.adapter_configuration.on_hover_provider(view, point)
+	# 	if not r:
+	# 		return
+	# 	word_string, region = r
 
-		try:
-			response = await session.evaluate_expression(word_string, 'hover')
-			await core.sleep(0.25)
-			variable = dap.types.Variable("", response.result, response.variablesReference)
-			view.add_regions('selected_hover', [region], scope="comment", flags=sublime.DRAW_NO_OUTLINE)
+	# 	try:
+	# 		response = await session.evaluate_expression(word_string, 'hover')
+	# 		await core.sleep(0.25)
+	# 		variable = dap.types.Variable("", response.result, response.variablesReference)
+	# 		view.add_regions('selected_hover', [region], scope="comment", flags=sublime.DRAW_NO_OUTLINE)
 
-			def on_close() -> None:
-				view.erase_regions('selected_hover')
+	# 		def on_close() -> None:
+	# 			view.erase_regions('selected_hover')
 
-			component = VariableComponent(dap.Variable(session, variable))
-			component.toggle_expand()
-			ui.Popup(ui.div(width=100)[component], view, region.a, on_close=on_close)
+	# 		component = VariableComponent(dap.Variable(session, variable))
+	# 		component.toggle_expand()
+			
+	# 		ui.Popup(ui.div(width=100)[component], view, region.a, on_close=on_close)
 
-		# errors trying to evaluate a hover expression should be ignored
-		except dap.Error as e:
-			core.log_error("adapter failed hover evaluation", e)
+	# 	# errors trying to evaluate a hover expression should be ignored
+	# 	except dap.Error as e:
+	# 		core.log_error("adapter failed hover evaluation", e)
 
 	def on_text_command(self, view: sublime.View, cmd: str, args: dict) -> Any:
 		if self.ignore(view): return

@@ -10,6 +10,8 @@ from .debugger import Project
 import sublime
 import sublime_plugin
 
+import math
+
 syntax_name_for_mime_type = {
 	'text/javascript': 'source.js',
 }
@@ -25,7 +27,9 @@ def show_line(view: sublime.View, line: int, column: int, move_cursor: bool):
 	def run(edit: sublime.Edit):
 		a = view.text_point(line, column)
 		region = sublime.Region(a, a)
-		view.show_at_center(region)
+		visible_region = view.visible_region()
+		if not visible_region.contains(region):
+			view.show_at_center(region)
 		if move_cursor:
 			view.sel().clear()
 			view.sel().add(region)
@@ -123,10 +127,15 @@ class SourceNavigationProvider:
 			view.set_read_only(True)
 			view.set_scratch(True)
 		elif source.source.path:
-			view = await core.sublime_open_file_async(self.project.window, source.source.path, source.line, source.column)
+			# view = await core.sublime_open_file_async(self.project.window, source.source.path, source.line, source.column)
+
+			file_name = self.project.window.active_view().file_name()
+			if file_name is not None and file_name == source.source.path:
+				view = await core.sublime_open_file_async(self.project.window, source.source.path, None, None)
+			else:
+				view = await core.sublime_open_file_async(self.project.window, source.source.path, source.line, source.column)
 		else:
 			raise core.Error('source has no reference or path')
-
 
 		show_line(view, line, column, move_cursor)
 

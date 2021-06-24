@@ -67,20 +67,28 @@ rounded_panel = ui.css(
 	raw='''border-radius: 0.33rem;'''
 )
 
+debugger_panel = ui.css(
+	padding_top=1.5,
+	padding_left=1.5,
+	padding_right=1.5,
+	background_color='var(--panel-color)',
+	raw='''border-radius: 0.33rem;'''
+)
+
 tab_panel = ui.css(
 	padding_left=1.5,
 	padding_right=1.5
 )
 
 tab_panel_selected = ui.css(
-	background_color='var(--panel-color)',
+	background_color='var(--segment-color)',
 	padding_left=1.5,
 	padding_right=1.5,
-	raw='''
-	padding-bottom:2rem;
-	border-top-left-radius: 0.33rem;
-	border-top-right-radius: 0.33rem;
-	'''
+	# raw='''
+	# padding-bottom:2rem;
+	# border-top-left-radius: 0.33rem;
+	# border-top-right-radius: 0.33rem;
+	# '''
 )
 
 table_inset = ui.css(

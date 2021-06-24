@@ -96,5 +96,7 @@ class Images:
 		self.loading = Image.named_light_dark('loading_disabled.png')
 		self.thread_running = Image.named_light_dark('thread_running.png')
 
-		self.open = Image.named_light_dark('open_disabled.png')
-		self.close = Image.named_light_dark('close_disabled.png')
+		# self.open = Image.named_light_dark('open_disabled.png')
+		# self.close = Image.named_light_dark('close_disabled.png')
+		self.open = Image.named_light_dark('open.png')
+		self.close = Image.named_light_dark('close.png')

@@ -86,10 +86,12 @@ class DebuggerPanel(ui.div):
 
 		panel_items.append(self.breakpoints)
 
+		width = self.layout.width() * 0.187
+
 		return [
 			ui.div()[
 				ui.div(height=css.header_height)[items],
-				ui.div(width=27, height=1000, css=css.rounded_panel)[
+				ui.div(width=width, height=1000, css=css.debugger_panel)[
 					panel_items
 				],
 			]

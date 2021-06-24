@@ -88,10 +88,11 @@ class DebuggerOutputPanel:
 		settings.set('wrap_width', 0)
 		settings.set('line_spacing', 0)
 		settings.set('context_menu', 'Widget Debug.sublime-menu')
-		settings.set('draw_centered', True)
+		settings.set('draw_centered', False)
 		settings.set('is_widget', True)
 		settings.set('sublime_debugger', True)
 		settings.set('font_face', Settings.font_face)
+		settings.set('color_scheme', 'Debugger.sublime-color-scheme')
 		self.panel.sel().clear()
 
 		def on_hide_panel(window: sublime.Window):

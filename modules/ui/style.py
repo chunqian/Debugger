@@ -23,14 +23,14 @@ base_css = '''
 	--secondary: color(var(--text-color) alpha(0.7));
 }
 .light {
-	--panel-color: color(var(--background) blend(black 92%));
-	--segment-color: color(var(--background) blend(black 87%));
+	--panel-color: #ebedef;
+	--segment-color: color(#ebedef blend(black 87%));
 
-	--text-color: var(--foreground);
+	--text-color: #333;
 	--label-color: var(--text-color);
 
 	--primary: var(--text-color);
-	--secondary: color(var(--text-color) alpha(0.7));
+	--secondary: var(--text-color);
 }
 a {
 	text-decoration: none;
