@@ -152,7 +152,8 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 		self.sources_panel = SourcesView(self.sessions, self.on_navigate_to_source)
 
 		self.middle_panel.update([
-			TabbedPanelItem(self.terminal_view, self.terminal_view, 'Debugger Console', show_options=lambda: self.terminal.show_backing_panel()),
+			# TabbedPanelItem(self.terminal_view, self.terminal_view, 'Debugger Console', show_options=lambda: self.terminal.show_backing_panel()),
+			TabbedPanelItem(self.terminal_view, self.terminal_view, 'Debugger Console'),
 			TabbedPanelItem(self.callstack_view, self.callstack_view, 'Callstack'),
 			TabbedPanelItem(self.problems_view, self.problems_view, 'Problems'),
 			TabbedPanelItem(self.variables_panel, self.variables_panel, 'Variables'),
@@ -203,27 +204,27 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 			self.source_provider.clear()
 
 	def on_session_state_changed(self, session: dap.Session, state: dap.Session.State):
-		if self.sessions.has_active and self.sessions.active != session:
-			return
+		return
+		# if self.sessions.has_active and self.sessions.active != session:
+		# 	return
 
-		if state == dap.Session.State.STOPPED:
-			if self.sessions or session.stopped_reason == dap.Session.stopped_reason_build_failed:
-				... # leave build results open or there is still a running session
-			else:
-				self.show_console_panel()
+		# if state == dap.Session.State.STOPPED:
+		# 	if self.sessions or session.stopped_reason == dap.Session.stopped_reason_build_failed:
+		# 		... # leave build results open or there is still a running session
+		# 	else:
+		# 		self.show_console_panel()
 
-		elif state == dap.Session.State.RUNNING:
-			self.show_console_panel()
+		# elif state == dap.Session.State.RUNNING:
+		# 	self.show_console_panel()
 
-		elif state == dap.Session.State.PAUSED:
-			# if self.project.bring_window_to_front_on_pause:
-			# figure out a good way to bring sublime to front
+		# elif state == dap.Session.State.PAUSED:
+		# 	# if self.project.bring_window_to_front_on_pause:
+		# 	# figure out a good way to bring sublime to front
 
-			# self.show_call_stack_panel()
-			return
+		# 	self.show_call_stack_panel()
 
-		elif state == dap.Session.State.STOPPING or state == dap.Session.State.STARTING:
-			...
+		# elif state == dap.Session.State.STOPPING or state == dap.Session.State.STARTING:
+		# 	...
 
 	def clear_all_breakpoints(self):
 		self.breakpoints.data.remove_all()
