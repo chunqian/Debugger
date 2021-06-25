@@ -236,6 +236,7 @@ tokenize_re = re.compile(
 	r'|([-.0-9]+)' #matches number
 	r"|('[^']*')" #matches string '' no escape
 	r'|("[^"]*")' #matches string "" no escape
+	r'|^([a-zA-Z]+)' #matches keyword
 	r'|(.*?)' #other
 )
 
@@ -255,13 +256,15 @@ class code(span, alignable):
 
 	def html(self, layout: Layout) -> str:
 		self.text_html = ''
-		for number, number_hex, string, string_double, other in tokenize_re.findall(self.text):
+		for number, number_hex, string, string_double, keyword, other in tokenize_re.findall(self.text):
 			string = string_double or string
 			number = number or number_hex
 			if number:
 				self.text_html += f'<s style="color:var(--yellowish);">{number}</s>'
 			if string:
 				self.text_html += f'<s style="color:var(--greenish);">{html_escape(string)}</s>'
+			if keyword:
+				self.text_html += f'<s style="color:#c695c6;">{html_escape(keyword)}</s>'
 			if other:
 				self.text_html += html_escape(other)
 

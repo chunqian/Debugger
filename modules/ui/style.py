@@ -13,14 +13,14 @@ REM_WIDTH_SCALE = 7.0/12.0
 
 base_css = '''
 .dark {
-	--panel-color: color(var(--background) blend(black 90%));
+	--panel-color: color(var(--background));
 	--segment-color: color(var(--background) blend(black 75%));
 
 	--text-color: var(--foreground);
 	--label-color: var(--text-color);
 
 	--primary: var(--text-color);
-	--secondary: color(var(--text-color) alpha(0.7));
+	--secondary: var(--text-color);
 }
 .light {
 	--panel-color: #ebedef;

@@ -92,7 +92,7 @@ class DebuggerOutputPanel:
 		settings.set('is_widget', True)
 		settings.set('sublime_debugger', True)
 		settings.set('font_face', Settings.font_face)
-		settings.set('color_scheme', 'Debugger.sublime-color-scheme')
+		settings.set('color_scheme', 'Mariana.sublime-color-scheme')
 		self.panel.sel().clear()
 
 		def on_hide_panel(window: sublime.Window):
