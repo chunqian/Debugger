@@ -25,13 +25,15 @@ class SelectedLineText(ui.div):
 		super().__init__()
 		self.text = text
 
-	def render(self) -> ui.div.Children:
-		return [
-			ui.div2(height=2.8)[
-				ui.text(self.text, css=css.selected_text),
-			],
-		]
+	# def render(self) -> ui.div.Children:
+	# 	return [
+	# 		ui.div2(height=2.8)[
+	# 			ui.text(self.text, css=css.selected_text),
+	# 		],
+	# 	]
 
+	def render(self) -> ui.div2:
+		return ui.div2(height=2.8)
 
 class SelectedLine:
 	def __init__(self, view: sublime.View, line: int, text: str):
