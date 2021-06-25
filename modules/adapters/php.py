@@ -24,7 +24,8 @@ class PHP(adapter.AdapterConfiguration):
 		return adapter.StdioTransport(log, command)
 
 	async def install(self, log: core.Logger):
-		url = 'https://github.com/xdebug/vscode-php-debug/releases/latest/download/php-debug.vsix'
+		# url = 'https://github.com/xdebug/vscode-php-debug/releases/latest/download/php-debug.vsix'
+		url = 'https://github.com/xdebug/vscode-php-debug/releases/download/v1.16.0/php-debug-1.16.0.vsix'
 		await adapter.vscode.install(self.type, url, log)
 
 	async def installed_status(self, log: core.Logger):

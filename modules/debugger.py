@@ -140,7 +140,7 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 
 		# middle panels
 		# self.middle_panel = TabbedPanel([], 0, width_scale=0.666, width_additional=-41)
-		self.middle_panel = TabbedPanel([], 0, width_scale=0.77, width_additional=0)
+		self.middle_panel = TabbedPanel([], 0, width_scale=0.787, width_additional=0)
 
 		self.terminal_view = TerminalView(self.terminal, self.on_navigate_to_source)
 
