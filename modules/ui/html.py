@@ -233,7 +233,7 @@ class icon (span):
 
 tokenize_re = re.compile(
 	r'(0x[0-9A-Fa-f]+)' #matches hex
-	r'|([-.0-9]+)' #matches number
+	r'|(\b[-.0-9]+\b)' #matches number
 	r"|('[^']*')" #matches string '' no escape
 	r'|("[^"]*")' #matches string "" no escape
 	r'|^([a-zA-Z]+)' #matches keyword
@@ -256,7 +256,7 @@ class code(span, alignable):
 
 	def html(self, layout: Layout) -> str:
 		self.text_html = ''
-		for number, number_hex, string, string_double, keyword, other in tokenize_re.findall(self.text):
+		for number_hex, number, string, string_double, keyword, other in tokenize_re.findall(self.text):
 			string = string_double or string
 			number = number or number_hex
 			if number:
