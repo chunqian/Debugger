@@ -48,6 +48,7 @@ class Image:
 		self.file = file_light
 		self.file_light = file_light
 		self.file_dark = file_dark
+		self.name = None #type: str|None
 
 	def data(self, layout: Layout) -> str:
 		if layout.luminocity() < 0.5:
@@ -72,6 +73,15 @@ class Images:
 		self.dot_expr = Image.named('breakpoint-expr.png')
 		self.dot_log = Image.named('breakpoint-log.png')
 		self.dot_disabled = Image.named('breakpoint-disabled.png')
+
+		# set name
+		self.dot.name = 'breakpoint'
+		self.dot_expr.name = 'breakpoint-expr'
+		self.dot_log.name = 'breakpoint-log'
+		self.dot_2 = Image.named('breakpoint-s.png')
+		self.dot_expr_2 = Image.named('breakpoint-expr-s.png')
+		self.dot_log_2 = Image.named('breakpoint-log-s.png')
+
 		self.resume = Image.named_light_dark('continue.png')
 		self.play = Image.named_light_dark('play.png')
 		self.stop = Image.named_light_dark('stop.png')

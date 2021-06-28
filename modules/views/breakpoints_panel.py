@@ -83,10 +83,19 @@ class BreakpointsPanel(ui.div):
 						ui.text(breakpoint.name, css=css.label_secondary),
 					]
 
+				image = breakpoint.image
+				image_name = breakpoint.image.name
+				if image_name == 'breakpoint':
+					image = ui.Images.shared.dot_2
+				elif image_name == 'breakpoint-expr':
+					image = ui.Images.shared.dot_expr_2
+				elif image_name == 'breakpoint-log':
+					image = ui.Images.shared.dot_log_2
+				
 				items.append(ui.div(height=css.row_height)[
 					ui.align()[
 						ui.click(lambda breakpoint=breakpoint: self.on_toggle(breakpoint))[ #type: ignore
-							ui.icon(breakpoint.image),
+							ui.icon(image),
 						],
 						ui.click(lambda breakpoint=breakpoint: self.on_select(breakpoint))[ #type: ignore
 							tag_and_name
