@@ -84,7 +84,7 @@ class BreakpointsPanel(ui.div):
 					]
 
 				image = breakpoint.image
-				image_name = breakpoint.image.name
+				image_name = breakpoint.image.file_name
 				if image_name == 'breakpoint':
 					image = ui.Images.shared.dot_2
 				elif image_name == 'breakpoint-expr':

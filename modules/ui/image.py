@@ -36,19 +36,19 @@ class Image:
 	@staticmethod
 	def named(name: str) -> 'Image':
 		path = _path_for_image(name)
-		return Image(path, path)
+		return Image(path, path, name)
 
 	@staticmethod
 	def named_light_dark(name: str) -> 'Image':
 		light = _path_for_image(f'light/{name}')
 		dark = _path_for_image(f'dark/{name}')
-		return Image(dark, light)
+		return Image(dark, light, name)
 
-	def __init__(self, file_dark: str, file_light: str) -> None:
+	def __init__(self, file_dark: str, file_light: str, file_name: str) -> None:
 		self.file = file_light
 		self.file_light = file_light
 		self.file_dark = file_dark
-		self.name = None #type: str|None
+		self.file_name = file_name.split('.')[0]
 
 	def data(self, layout: Layout) -> str:
 		if layout.luminocity() < 0.5:
@@ -74,10 +74,7 @@ class Images:
 		self.dot_log = Image.named('breakpoint-log.png')
 		self.dot_disabled = Image.named('breakpoint-disabled.png')
 
-		# set name
-		self.dot.name = 'breakpoint'
-		self.dot_expr.name = 'breakpoint-expr'
-		self.dot_log.name = 'breakpoint-log'
+		# set other dot
 		self.dot_2 = Image.named('breakpoint-s.png')
 		self.dot_expr_2 = Image.named('breakpoint-expr-s.png')
 		self.dot_log_2 = Image.named('breakpoint-log-s.png')
