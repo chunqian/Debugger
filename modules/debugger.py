@@ -444,7 +444,7 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 
 		values = self.change_configuration_input_items()
 		values.extend([
-			ui.InputListItem(lambda: ..., ""),
+			# ui.InputListItem(lambda: ..., ""),
 			ui.InputListItem(report_issue, "Report Issue"),
 			ui.InputListItem(about, "About/Getting Started"),
 		])
@@ -478,8 +478,8 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 			name = f'{c.name}\t{c.type}'
 			values.append(ui.InputListItemChecked(lambda c=c: self.set_configuration(c), c == self.project.configuration_or_compound, name))
 
-		if values:
-			values.append(ui.InputListItem(lambda: ..., ""))
+		# if values:
+		# 	values.append(ui.InputListItem(lambda: ..., ""))
 
 		values.append(ui.InputListItem(AdaptersRegistry.add_configuration(log=self), "Add Configuration"))
 		values.append(ui.InputListItem(lambda: self.open_project_configurations_file(), "Edit Configuration File"))
