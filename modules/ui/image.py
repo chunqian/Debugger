@@ -87,6 +87,7 @@ class Images:
 
 		self.clear = Image.named_light_dark('clear.png')
 
+		self.play_disable = Image.named_light_dark('play_disabled.png')
 		self.stop_disable = Image.named_light_dark('stop_disabled.png')
 		self.pause_disable = Image.named_light_dark('pause_disabled.png')
 

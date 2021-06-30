@@ -30,13 +30,15 @@ class DebuggerPanel(ui.div):
 
 		items = [
 			DebuggerCommandButton(self.debugger.on_settings, ui.Images.shared.settings),
-			DebuggerCommandButton(self.debugger.on_play, ui.Images.shared.play),
+			# DebuggerCommandButton(self.debugger.on_play, ui.Images.shared.play),
 		]
 
 
 		if self.debugger.is_stoppable():
+			items.append(DebuggerCommandButton(lambda: None, ui.Images.shared.play_disable))
 			items.append(DebuggerCommandButton(self.debugger.on_stop, ui.Images.shared.stop))
 		else:
+			items.append(DebuggerCommandButton(self.debugger.on_play, ui.Images.shared.play))
 			items.append(DebuggerCommandButton(self.debugger.on_stop, ui.Images.shared.stop_disable))
 
 		if self.debugger.is_running():
@@ -49,14 +51,14 @@ class DebuggerPanel(ui.div):
 		if self.debugger.is_paused():
 			items.extend([
 				DebuggerCommandButton(self.debugger.on_step_over, ui.Images.shared.down),
-				DebuggerCommandButton(self.debugger.on_step_out, ui.Images.shared.left),
 				DebuggerCommandButton(self.debugger.on_step_in, ui.Images.shared.right),
+				DebuggerCommandButton(self.debugger.on_step_out, ui.Images.shared.left),
 			])
 		else:
 			items.extend([
 				DebuggerCommandButton(self.debugger.on_step_over, ui.Images.shared.down_disable),
-				DebuggerCommandButton(self.debugger.on_step_out, ui.Images.shared.left_disable),
 				DebuggerCommandButton(self.debugger.on_step_in, ui.Images.shared.right_disable),
+				DebuggerCommandButton(self.debugger.on_step_out, ui.Images.shared.left_disable),
 			])
 
 		# looks like
