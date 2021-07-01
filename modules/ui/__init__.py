@@ -3,7 +3,7 @@ from .. import core
 
 from .render import *
 
-from .html import div, div2, span, text, icon, click, code
+from .html import div, div_emoji, span, text, icon, click, code
 from .style import css
 
 from .layout import *

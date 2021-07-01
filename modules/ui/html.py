@@ -16,7 +16,7 @@ class alignable(Protocol):
 
 
 class element:
-	def __init__(self, is_inline: bool, width: float|None, height: float|None, css: css|None) -> None:
+	def __init__(self, is_inline: bool, width: float|None, height: float|None, css: css|None = None) -> None:
 		super().__init__()
 		self.layout = None #type: Optional[Layout]
 		self.children = [] #type: Sequence[element]
@@ -142,11 +142,13 @@ class div (element):
 			html = f'<div class="{self.className}" style="height:{h}rem;width:{w}rem;">{inner}</div>'
 		return html
 
-class div2 (element):
+class div_emoji (element):
 	Children = Optional[Union[Sequence['div'], Sequence['span'], 'div', 'span']]
 
-	def __init__(self, width: float|None = None, height: float|None = None, css: css|None = None) -> None:
-		super().__init__(False, width, height, css)
+	def __init__(self, text: str, width: float|None = None, height: float|None = None, color: str|None = None) -> None:
+		super().__init__(False, width, height)
+		self.text = text
+		self.color = color if color is not None else '#fff' 
 		self._items = None #type: div.Children
 
 	def render(self) -> 'div.Children':
@@ -157,7 +159,7 @@ class div2 (element):
 		return self
 
 	def html(self, layout: Layout) -> str:
-		html = f'<div style="color: #157efb">⬅</div>'
+		html = f'<div style="color: {self.color}">{self.text}</div>'
 		return html
 
 

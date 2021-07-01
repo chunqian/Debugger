@@ -27,13 +27,13 @@ class SelectedLineText(ui.div):
 
 	# def render(self) -> ui.div.Children:
 	# 	return [
-	# 		ui.div2(height=2.8)[
+	# 		ui.div(height=2.8)[
 	# 			ui.text(self.text, css=css.selected_text),
 	# 		],
 	# 	]
 
-	def render(self) -> ui.div2:
-		return ui.div2(height=2.8)
+	def render(self) -> ui.div_emoji:
+		return ui.div_emoji('⬅', height=2, color='#157efb')
 
 class SelectedLine:
 	def __init__(self, view: sublime.View, line: int, text: str):
