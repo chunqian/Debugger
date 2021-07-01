@@ -149,6 +149,7 @@ class SourceBreakpointView:
 class SourceBreakpoints:
 	def __init__(self):
 		self.breakpoints: list[SourceBreakpoint] = []
+		self.expired_breakpoints: list[SourceBreakpoint] = []
 		self.on_updated: core.Event[SourceBreakpoint] = core.Event()
 		self.on_send: core.Event[SourceBreakpoint] = core.Event()
 
@@ -247,6 +248,7 @@ class SourceBreakpoints:
 	def remove(self, breakpoint: SourceBreakpoint):
 		breakpoint.clear_views()
 		self.breakpoints.remove(breakpoint)
+		self.expired_breakpoints.append(breakpoint)
 		self.updated(breakpoint)
 
 	def toggle_enabled(self, breakpoint: SourceBreakpoint):
@@ -348,6 +350,14 @@ class SourceBreakpoints:
 					dirty = True
 					b.dap.line = line
 					self.updated(b, send=False)
+
+		for b in self.expired_breakpoints:
+			if b.file != file:
+				continue
+			identifier = b.region_name
+			regions = view.get_regions(identifier)
+			if len(regions) != 0:
+				view.erase_regions(identifier)
 
 	# moves the view regions to match up with the data model
 	def sync_from_breakpoints(self, view: sublime.View):
