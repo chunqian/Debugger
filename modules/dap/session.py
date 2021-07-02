@@ -475,7 +475,7 @@ class Session(TransportProtocolListener, core.Logger):
 
 		self.state = Session.State.STOPPED
 
-		print(self.complete)
+		# print(self.complete)
 		if not self.complete.done():
 			self.complete.set_result(None)
 
