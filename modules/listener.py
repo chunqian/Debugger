@@ -62,7 +62,7 @@ class Listener (sublime_plugin.EventListener):
 	# 	return not bool(Debugger.instances)
 
 	def ignore(self, view: sublime.View):
-		if not bool(Debugger.instances):
+		if not bool(Debugger.instances) or not view.window():
 			return True
 		id = view.window().id()
 		instance = Debugger.instances.get(id)
