@@ -482,7 +482,7 @@ class Debugger (dap.SessionsTasksProvider, core.Logger):
 		# 	values.append(ui.InputListItem(lambda: ..., ""))
 
 		values.append(ui.InputListItem(AdaptersRegistry.add_configuration(log=self), "Add Configuration File"))
-		values.append(ui.InputListItem(lambda: self.open_project_configurations_file(), "Edit Configuration File"))
+		values.append(ui.InputListItem(lambda: self.open_project_configurations_file(), "Edit Configuration"))
 		return values
 
 	def clear_unused_terminals(self):
