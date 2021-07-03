@@ -511,10 +511,20 @@ class BreakpointResult:
 
 	failed: ClassVar[BreakpointResult] = None #type: ignore
 
+	# @staticmethod
+	# def from_json(json: Json):
+	# 	return BreakpointResult(
+	# 		json['verified'],
+	# 		json.get('line'),
+	# 		json.get('column'),
+	# 		json.get('message'),
+	# 		json.get('id')
+	# 	)
+
 	@staticmethod
 	def from_json(json: Json):
 		return BreakpointResult(
-			json['verified'],
+			True, # php built-in web server, Xdebug always return false, block it, set True
 			json.get('line'),
 			json.get('column'),
 			json.get('message'),
