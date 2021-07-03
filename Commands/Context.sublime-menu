@@ -1,40 +1,25 @@
 [
-    {
-        "caption": "-"
-    },
-    {
-        "caption": "-"
-    },
-    {
-        "caption": "-"
-    },
-    {
-        "caption": "-"
-    },
-    {
-        "caption": "-"
-    },
-    {
-        "caption": "Toggle Breakpoint",
-        "command": "debugger",
-        "args": {
-            "action": "toggle_breakpoint"
-        }
-    },
-    {
-        "caption": "Toggle Column Breakpoint",
-        "command": "debugger",
-        "args": {
-            "action": "toggle_column_breakpoint"
-        }
-    },
-    {
-        "caption": "Run To Selected Line",
-        "command": "debugger",
-        "args": {
-            "action": "run_to_current_line"
-        }
-    },
+    // {
+    //     "caption": "Toggle Breakpoint",
+    //     "command": "debugger",
+    //     "args": {
+    //         "action": "toggle_breakpoint"
+    //     }
+    // },
+    // {
+    //     "caption": "Toggle Column Breakpoint",
+    //     "command": "debugger",
+    //     "args": {
+    //         "action": "toggle_column_breakpoint"
+    //     }
+    // },
+    // {
+    //     "caption": "Run To Selected Line",
+    //     "command": "debugger",
+    //     "args": {
+    //         "action": "run_to_current_line"
+    //     }
+    // },
     {
         "caption": "-"
     }
