@@ -4,6 +4,8 @@ from ..import core
 
 from dataclasses import dataclass
 
+from ..settings import Settings
+
 T = TypeVar('T')
 V = TypeVar('V')
 
@@ -511,20 +513,14 @@ class BreakpointResult:
 
 	failed: ClassVar[BreakpointResult] = None #type: ignore
 
-	# @staticmethod
-	# def from_json(json: Json):
-	# 	return BreakpointResult(
-	# 		json['verified'],
-	# 		json.get('line'),
-	# 		json.get('column'),
-	# 		json.get('message'),
-	# 		json.get('id')
-	# 	)
-
 	@staticmethod
 	def from_json(json: Json):
+		verified = json['verified']
+		if not Settings.breakpoints_verified:
+			verified = bool(True)
+
 		return BreakpointResult(
-			True, # php built-in web server, Xdebug always return false, block it, set True
+			verified,
 			json.get('line'),
 			json.get('column'),
 			json.get('message'),

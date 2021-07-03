@@ -12,7 +12,7 @@ class Settings:
 
 	open_at_startup: bool = True
 	ui_scale: int = 10
-	font_face: str = 'Monospace'
+	font_face: str = 'IBM Plex Mono'
 
 	external_terminal: str = "terminus"
 	hide_status_bar: bool = False
@@ -34,6 +34,8 @@ class Settings:
 	lldb_dereference_pointers: bool = True
 	lldb_library: str|None = None
 	lldb_python: str|None = None
+
+	breakpoints_verified: bool = False
 
 	@staticmethod
 	def on_updated():

@@ -27,7 +27,7 @@ class ModulesView(Panel):
 	def updated(self, session: dap.Session):
 		self._visible = False
 		for session in self.sessions:
-			print(session)
+			# print(session)
 			if session.modules:
 				self._visible = True
 				break

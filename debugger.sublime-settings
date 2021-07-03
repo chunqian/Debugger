@@ -39,6 +39,8 @@
 	"lldb.dereference_pointers": true,
 	// probably shouldn't set these
 	"lldb.library": null, // which lldb library to use
-	"lldb.python": null // path to python (3.5 or greater?) that lldb will use
+	"lldb.python": null, // path to python (3.5 or greater?) that lldb will use
+
+	"breakpoints_verified": false // PHP built-in web server, Xdebug breakpoint verified always return false, set false to block it
 }
 
