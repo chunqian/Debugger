@@ -198,6 +198,9 @@ class text (span, alignable):
 
 	def align(self, width: int):
 		self.text = self.text[0:width]
+		for string in doublebyte_re.findall(self.text):
+			if string:
+				self.text = self.text[0:width - len(string)]
 
 	@text.setter
 	def text(self, text: str):
@@ -242,6 +245,10 @@ tokenize_re = re.compile(
 	r'|(.*?)' #other
 )
 
+doublebyte_re = re.compile(
+	r'([^\x00-\xff…]+)' #double Byte
+)
+
 
 class code(span, alignable):
 	def __init__(self, text: str) -> None:
@@ -255,6 +262,9 @@ class code(span, alignable):
 
 	def align(self, width: int):
 		self.text = self.text[0:width]
+		for string in doublebyte_re.findall(self.text):
+			if string:
+				self.text = self.text[0:width - len(string)]
 
 	def html(self, layout: Layout) -> str:
 		self.text_html = ''
