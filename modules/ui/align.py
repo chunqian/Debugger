@@ -97,7 +97,7 @@ class align (span):
 		for element in resizeables:
 			max_width = int(width_for_resizeables/resizeables_left)
 			w = min(max_width, element.align_desired)
-			element.align(w)
+			element.align(w, max_width)
 			width_for_resizeables -= w
 			resizeables_left -= 1
 
