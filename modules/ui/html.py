@@ -210,7 +210,7 @@ class text (span, alignable):
 		self._text = text.replace("\u0000", "\\u0000")
 
 	def width(self, layout: Layout) -> float:
-		return len(self.text) + self.padding_width
+		return self.align_desired + self.padding_width
 
 	def html(self, layout: Layout) -> str:
 		self.text_html = html_escape(self._text)
@@ -264,7 +264,7 @@ class code(span, alignable):
 				self.align_desired += len(string)
 
 	def width(self, layout: Layout) -> float:
-		return len(self.text) + self.padding_width
+		return self.align_desired + self.padding_width
 
 	def align(self, width: int, max_width: int):
 		self.text = self.text[0:width]
