@@ -176,6 +176,7 @@ class TerminalView (Panel):
 		lines = []
 		height = 0
 		max_height = int((self.layout.height() - css.header_height)/css.row_height) - 2.0
+		max_height = max_height * 2
 		count = len(self.terminal.lines)
 		start = 0
 
