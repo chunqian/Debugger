@@ -191,6 +191,7 @@ class text (span, alignable):
 		self.text = text
 		self.align_required: int = 0
 		self.align_desired: int = len(self.text)
+		self.align_text: str = ''
 		for string in doublebyte_re.findall(self.text):
 			if string:
 				self.align_desired += len(string)
@@ -202,8 +203,11 @@ class text (span, alignable):
 	def align(self, width: int, max_width: int):
 		self.text = self.text[0:width]
 		for string in doublebyte_re.findall(self.text):
-			if string and width + len(string) > max_width - len(string):
-				self.text = self.text[0:max_width - len(string)]
+			if string:
+				self.align_text += string
+		align_text_len = len(self.align_text)
+		if self.align_text and width + align_text_len > max_width - align_text_len:
+			self.text = self.text[0:max_width - align_text_len]
 
 	@text.setter
 	def text(self, text: str):
@@ -259,6 +263,7 @@ class code(span, alignable):
 		self.text = text.replace("\n", "\\n")
 		self.align_required: int = 0
 		self.align_desired: int = len(self.text)
+		self.align_text: str = ''
 		for string in doublebyte_re.findall(self.text):
 			if string:
 				self.align_desired += len(string)
@@ -269,8 +274,11 @@ class code(span, alignable):
 	def align(self, width: int, max_width: int):
 		self.text = self.text[0:width]
 		for string in doublebyte_re.findall(self.text):
-			if string and width + len(string) > max_width - len(string):
-				self.text = self.text[0:max_width - len(string)]
+			if string:
+				self.align_text += string
+		align_text_len = len(self.align_text)
+		if self.align_text and width + align_text_len > max_width - align_text_len:
+			self.text = self.text[0:max_width - align_text_len]
 
 	def html(self, layout: Layout) -> str:
 		self.text_html = ''
