@@ -201,6 +201,7 @@ class text (span, alignable):
 		return self._text
 
 	def align(self, width: int, max_width: int):
+		self.align_text = ''
 		self.text = self.text[0:width]
 		for string in doublebyte_re.findall(self.text):
 			if string:
@@ -272,6 +273,7 @@ class code(span, alignable):
 		return self.align_desired + self.padding_width
 
 	def align(self, width: int, max_width: int):
+		self.align_text = ''
 		self.text = self.text[0:width]
 		for string in doublebyte_re.findall(self.text):
 			if string:
