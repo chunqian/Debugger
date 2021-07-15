@@ -18,6 +18,7 @@ import sublime
 
 url_matching_regex = re.compile(r"((http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?)") # from https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
 default_file_regex = re.compile("(.*):([0-9]+):([0-9]+): error: (.*)")
+doublebyte_regex = re.compile(r'([^\x00-\xff…]+)') # double Byte
 
 
 _css_for_type = {
@@ -98,6 +99,7 @@ class LineView (ui.div):
 
 		span_offset = 0
 		line_text = self.line.line
+		string_len = 0
 		while span_offset < len(line_text) and max_line_length > 0:
 			if leftover_line_length <= 0:
 				add_source_if_needed()
@@ -105,12 +107,23 @@ class LineView (ui.div):
 				spans = []
 				leftover_line_length = max_line_length
 
-			text = line_text[span_offset:span_offset + leftover_line_length]
+			text = line_text[span_offset - string_len:span_offset - string_len + leftover_line_length]
+
 			span_offset += len(text)
+			leftover_line_length -= len(text)
+			
+			align_text = text
+			for string in doublebyte_regex.findall(text):
+				if string and leftover_line_length < len(text):
+					string_len += len(string)
+					text = text[0:-len(string)]
 			spans.append(ui.click(lambda text=text: self.click(text))[
 				ui.text(text, css=self.css)
 			])
-			leftover_line_length -= len(text)
+			if leftover_line_length > 0:
+				leftover_line_length = 0
+				string_len = 0
+				span_offset = len(line_text) - (len(align_text) - len(text))
 
 		add_source_if_needed()
 		span_lines.append(ui.div(height=css.row_height)[spans])
